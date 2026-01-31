@@ -72,6 +72,103 @@
       transform: rotate(180deg);
     }
 
+    /* Info button */
+    #infoButton {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: #f74c696c;
+      color: #fff;
+      font-size: 24px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    #infoButton:hover {
+      background-color: #dd445e;
+
+    }
+
+    /* Popup background */
+    #infoPopup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2147483647;
+    }
+
+    /* Popup box */
+    #infoBox {
+      max-height: 80vh;
+      /* limits height to screen */
+      overflow-y: auto;
+      /* vertical scroll */
+      overflow-x: hidden;
+      padding: 16px;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      font-family: sans-serif;
+    }
+
+    #infoBox h2 {
+      margin-top: 0;
+    }
+
+    #infoBox ul {
+      padding-left: 18px;
+    }
+
+    #closeInfo {
+      margin-top: 15px;
+      width: 100%;
+      padding: 8px;
+      background: #f74c69;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #closeInfo:hover {
+      background: #dd445e;
+    }
+
+    /* Chrome, Edge, Safari */
+    #infoBox::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #infoBox::-webkit-scrollbar-track {
+      background: #202020;
+      /* track */
+    }
+
+    #infoBox::-webkit-scrollbar-thumb {
+      background: #3f3f3f;
+      /* thumb */
+      border-radius: 4px;
+    }
+
+    /* Firefox */
+    #infoBox {
+      scrollbar-color: #202020 #3f3f3f;
+      /* thumb track */
+      scrollbar-width: thin;
+    }
+
 
     h1 {
       font-weight: normal;
@@ -222,7 +319,6 @@
 
 <body>
   <div id="app"></div>
-  <!-- Loop button -->
 
 
 
@@ -269,7 +365,77 @@
 
   <a href="https://eth4nplays.github.io/simai_convert" target="_blank" id="loopButton" title="Go to Simai Convert">↔</a>
   <button id="restartButton" title="Restart">↻</button>
-  
+  <button id="infoButton" title="Info">i</button>
+
+  <div id="infoPopup">
+    <div id="infoBox">
+      <h2>About</h2>
+      <p>
+        This is a simulator of the popular arcade rhythm game <b>"maimai"</b>.
+      </p>
+      <p>The goal of this simulator is to make maimai accessible to anyone without any downloads.</p>
+      <ul>
+        <li>Slide notes are hard to implement, so they act as tap notes.</li>
+        <li>Working notes: Tap, Break, Hold</li>
+        <li>
+          This is an experimental project, so charts shown here may not reflect
+          the actual chart in the game.
+        </li>
+
+      </ul>
+      <h2>Credits</h2>
+      <ul>
+        <li>
+          Simai score data from:
+          <a href="https://mai-notes.com/" target="_blank">mai-notes.com</a>
+        </li>
+        <li>
+          <b>maimai でらっくす</b> — SFX and logo belong to SEGA
+        </li>
+      </ul>
+
+      <h2>Notes</h2>
+      <ul>
+        <li>
+          Due to file size limitations, audio files are compressed,
+          resulting in lower audio quality.
+        </li>
+      </ul>
+
+      <h2>Music Credits</h2>
+      <ul>
+        <li>Xaleid◆scopiX — xi</li>
+        <li>系ぎて — rintaro soma</li>
+        <li>テトリス — Hiiragi Magnetite (feat. 重音テトSV)</li>
+        <li>Oshama Scramble! — t+pazolite</li>
+        <li>ウミユリ海底譚 — n-buna (feat. 初音ミク)</li>
+        <li>うまぴょい伝説 — スペシャルウィーク</li>
+      </ul>
+
+      <button id="closeInfo">Close</button>
+    </div>
+  </div>
+  <script>
+    const infoButton = document.getElementById("infoButton");
+    const infoPopup = document.getElementById("infoPopup");
+    const closeInfo = document.getElementById("closeInfo");
+
+    infoButton.onclick = () => {
+      infoPopup.style.display = "flex";
+    };
+
+    closeInfo.onclick = () => {
+      infoPopup.style.display = "none";
+    };
+
+    // Click outside box to close
+    infoPopup.onclick = (e) => {
+      if (e.target === infoPopup) {
+        infoPopup.style.display = "none";
+      }
+    };
+  </script>
+
   <script>
     document.getElementById("restartButton").addEventListener("click", () => {
       if (window.vm) {
